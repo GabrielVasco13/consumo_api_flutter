@@ -22,8 +22,6 @@ class HomeView extends StatelessWidget {
             builder: (context, viewModel, child) {
               if (viewModel.isLoading) {
                 return const CircularProgressIndicator();
-              } else if (viewModel.errorMessage != null) {
-                return Text('Erro: ${viewModel.errorMessage}');
               } else if (viewModel.message != null) {
                 return Column(
                   mainAxisAlignment: MainAxisAlignment.center,
