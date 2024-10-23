@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:consumo_api/app/models/message_model.dart';
 import 'package:dio/dio.dart';
 
@@ -14,7 +16,13 @@ class MessageRepositories {
 
       if (response.statusCode == 200) {
         print('Resposta recebida: ${response.data}');
-        final slip = response.data['slip'] as Map<String, dynamic>;
+
+        // Check if response.data is a String and decode it if necessary
+        final Map<String, dynamic> data = response.data is String
+            ? jsonDecode(response.data) as Map<String, dynamic>
+            : response.data as Map<String, dynamic>;
+
+        final slip = data['slip'] as Map<String, dynamic>;
         return MessageModel.fromJson(slip);
       } else {
         throw Exception(
